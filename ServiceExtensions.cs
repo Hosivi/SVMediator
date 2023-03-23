@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Concurrent;
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -9,7 +10,8 @@ public static class ServiceExtensions
     public static IServiceCollection AddSVMediator(this IServiceCollection service, ServiceLifetime lifetime,
         params Type[] markers)
     {
-        var commandsInfo = new Dictionary<Type, Type>();
+        var commandsInfo = new ConcurrentDictionary<Type, Type>();
+        
         foreach (var marker in markers)
         {
             var assembly = marker.Assembly;
@@ -23,8 +25,21 @@ public static class ServiceExtensions
             var serviceDescriptor = commands.Select(x => new ServiceDescriptor(x, x, lifetime));
             service.TryAdd(serviceDescriptor);
         }
-
-        service.AddSingleton<IMediator>(x => new SVMediator(commandsInfo, x.GetRequiredService));
+        var requestsInfo = new Dictionary<Type, Type>();
+        foreach (var marker in markers)
+        {
+            var assembly = marker.Assembly;
+            var requests = GetClassesImplementingGenericInterface(assembly, typeof(IRequest<>));
+            var handlers = GetClassesImplementingGenericInterface(assembly, typeof(IRequestHandler<,>));
+            requests.ForEach(x =>
+            {
+                requestsInfo[x] =
+                    handlers.SingleOrDefault(xx => x == xx.GetInterface("IRequestHandler`2")!.GetGenericArguments()[0]);     
+            });
+            var serviceDescriptor = requests.Select(x => new ServiceDescriptor(x, x, lifetime));
+            service.TryAdd(serviceDescriptor);
+        }
+        service.AddSingleton<IMediator>(x => new SVMediator(commandsInfo, requestsInfo ,x.GetRequiredService,x));
         return service;
     }
 
