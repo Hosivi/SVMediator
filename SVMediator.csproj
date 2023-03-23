@@ -4,6 +4,11 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>Utils</Title>
+    <Description>Utilidades</Description>
+    <Company>SIVI</Company>
+    <PackageId>SiviUtils</PackageId>
+    <RepositoryUrl>https://github.com/Hosivi/SVMediator.git</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +18,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Utils\Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include=".github\workflows\dotnet.yml" />
   </ItemGroup>
 
 </Project>
