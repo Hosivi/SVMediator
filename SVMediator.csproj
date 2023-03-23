@@ -4,10 +4,10 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Title>Utils</Title>
-    <Description>Utilidades</Description>
+    <Title>SVMediator</Title>
+    <Description>Mediator</Description>
     <Company>SIVI</Company>
-    <PackageId>SiviUtils</PackageId>
+    <PackageId>SVMediator</PackageId>
     <RepositoryUrl>https://github.com/Hosivi/SVMediator.git</RepositoryUrl>
   </PropertyGroup>
 
@@ -15,11 +15,7 @@
     <PackageReference Include="Blazored.SessionStorage" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Utils\Utils.csproj" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <Content Include=".github\workflows\dotnet.yml" />
   </ItemGroup>
