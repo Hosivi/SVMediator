@@ -51,8 +51,7 @@ public class ObtenerProductoHandler : IRequestHandler<ObtenerProductoQuery, Prod
 
 ### 3. Usar el Mediador
 ```csharp
-var mediator = new Mediator();
-var producto = await mediator.Send(new ObtenerProductoQuery { Id = 1 });
+builder.Services.AddSVMediator(ServiceLifetime.Transient, types.ToArray());
 ```
 
 ---
