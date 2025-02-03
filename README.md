@@ -48,12 +48,48 @@ public class ObtenerProductoHandler : IRequestHandler<ObtenerProductoQuery, Prod
     }
 }
 ```
+### 3. Implementar un PipelineBehavior
+```csharp
+public class TestPipeline<TRequest, TResponse> : IPipeline<TRequest, TResponse>
+{
+    private readonly IMessagingService MessagingService;
 
-### 3. Usar el Mediador
+    public TestPipeline(IMessagingService messagingService)
+    {
+        MessagingService = messagingService;
+    }
+
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next
+        , CancellationToken cancellationToken)
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            Console.WriteLine("si funciona el pipeline");
+        }
+
+        var t = request.GetType();
+        var tc = typeof(GetAllQuery<>);
+         if (t.Name==tc.Name)
+         {
+             await MessagingService.SendQueryMessage("esta es una consulta del test", (() => next.Invoke()));
+             Console.WriteLine("si funciona el pipelinetest desde el type");
+        }
+
+        return await next(); 
+
+    }
+}
+```
+
+### 4. Usar el Mediador
 ```csharp
 builder.Services.AddSVMediator(ServiceLifetime.Transient, types.ToArray());
 ```
 
+### 4. Usar el PipelineBehavior
+```csharp
+services.AddTransient(typeof(IPipeline<,>), typeof(TestPipeline<,>));
+```
 ---
 
 ## 🌐 Integración con .NET Dependency Injection
