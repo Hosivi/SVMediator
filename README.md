@@ -16,7 +16,7 @@ Actualmente, SVMediator no está disponible como un paquete NuGet. Para usarlo e
 
 ```sh
 # Clonar el repositorio
-git clone https://github.com/TU_USUARIO/SVMediator.git
+git clone https://github.com/Hosivi/SVMediator.git
 ```
 
 ---
@@ -67,6 +67,7 @@ services.AddSVMediator();
 
 ## 👀 Características
 - Implementación ligera del **Mediator Pattern**.
+- Implementación de PipelineBehaviors.
 - Separación clara de responsabilidades.
 - Compatible con .NET 7 y superior.
 - Integración con **Dependency Injection**.
@@ -87,7 +88,7 @@ Este es un proyecto personal, pero si tienes sugerencias, puedes abrir un **pull
 ---
 
 ## 👋 Contacto
-Cualquier duda o sugerencia, puedes contactarme a través de **[GitHub Issues](https://github.com/TU_USUARIO/SVMediator/issues)** o en mi perfil de **GitHub**.
+Cualquier duda o sugerencia, puedes contactarme a través de **[GitHub Issues](https://github.com/Hosivi/SVMediator/issues)** o en mi perfil de **GitHub**.
 
 ---
 
